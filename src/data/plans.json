@@ -1,0 +1,93 @@
+[
+  {
+    "id": "p1",
+    "name": "All days plan",
+    "description": "Mindfully created for everyone for everyday lunch",
+    "isActive": true,
+    "hasVeg": true,
+    "hasNonVeg": true,
+    "vendors": ["v1", "v2", "v6", "v3", "v4", "v5"],
+    "rotationType": "Round robin",
+    "schedule": {
+      "type": "weekly",
+      "days": ["monday", "tuesday", "wednesday", "thursday", "friday"]
+    },
+    "pollSettings": {
+      "postTime": "10:00",
+      "closeTime": "12:00"
+    },
+    "audience": "Everyone",
+    "notifications": [
+      { "value": 10, "unit": "Minutes", "type": "before" },
+      { "value": 1, "unit": "Hour", "type": "before" }
+    ],
+    "stats": {
+      "pollsCreated": 12,
+      "responseRate": 96.66,
+      "vegItems": 12,
+      "nonVegItems": 24
+    },
+    "nextUpVendors": ["v3", "v4", "v5", "v7"],
+    "createdAt": "2024-01-15T10:00:00Z"
+  },
+  {
+    "id": "p2",
+    "name": "Festival special",
+    "description": "Mindfully created for everyone for everyday lunch",
+    "isActive": false,
+    "hasVeg": false,
+    "hasNonVeg": true,
+    "vendors": ["v4", "v5"],
+    "rotationType": "Round robin",
+    "schedule": {
+      "type": "weekly",
+      "days": ["friday"]
+    },
+    "pollSettings": {
+      "postTime": "09:00",
+      "closeTime": "11:30"
+    },
+    "audience": "Everyone",
+    "notifications": [
+      { "value": 15, "unit": "Minutes", "type": "before" }
+    ],
+    "stats": {
+      "pollsCreated": 5,
+      "responseRate": 88.5,
+      "vegItems": 0,
+      "nonVegItems": 8
+    },
+    "nextUpVendors": ["v4", "v5"],
+    "createdAt": "2024-01-10T10:00:00Z"
+  },
+  {
+    "id": "p3",
+    "name": "Dummy plan",
+    "description": "Mindfully created for everyone for everyday lunch",
+    "isActive": false,
+    "hasVeg": true,
+    "hasNonVeg": false,
+    "vendors": ["v3"],
+    "rotationType": "Round robin",
+    "schedule": {
+      "type": "weekly",
+      "days": ["monday", "wednesday"]
+    },
+    "pollSettings": {
+      "postTime": "09:30",
+      "closeTime": "11:00"
+    },
+    "audience": "Everyone",
+    "notifications": [
+      { "value": 30, "unit": "Minutes", "type": "before" }
+    ],
+    "stats": {
+      "pollsCreated": 3,
+      "responseRate": 92.0,
+      "vegItems": 4,
+      "nonVegItems": 0
+    },
+    "nextUpVendors": ["v3"],
+    "createdAt": "2024-01-05T10:00:00Z"
+  }
+]

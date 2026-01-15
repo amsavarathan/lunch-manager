@@ -1,0 +1,110 @@
+[
+  {
+    "id": "v1",
+    "name": "Zaitoon",
+    "cuisine": "Indian",
+    "phone": "+91 98765 43210",
+    "email": "orders@zaitoon.com",
+    "address": "123 Anna Nagar, Chennai",
+    "isActive": true,
+    "menuItems": [
+      { "id": "m1", "name": "Full meals", "price": 180, "isVeg": true },
+      { "id": "m2", "name": "Panneer butter masala | Naan", "price": 220, "isVeg": true },
+      { "id": "m3", "name": "Veg briyani", "price": 150, "isVeg": true },
+      { "id": "m4", "name": "Pulav", "price": 120, "isVeg": true },
+      { "id": "m5", "name": "Chicken meals", "price": 200, "isVeg": false },
+      { "id": "m6", "name": "Butter chicken | Naan", "price": 280, "isVeg": false },
+      { "id": "m7", "name": "Chicken briyani", "price": 180, "isVeg": false }
+    ]
+  },
+  {
+    "id": "v2",
+    "name": "Geetham",
+    "cuisine": "South Indian",
+    "phone": "+91 98765 43211",
+    "email": "orders@geetham.com",
+    "address": "456 T Nagar, Chennai",
+    "isActive": true,
+    "menuItems": [
+      { "id": "m8", "name": "Thali meals", "price": 150, "isVeg": true },
+      { "id": "m9", "name": "Curd rice", "price": 80, "isVeg": true },
+      { "id": "m10", "name": "Sambar rice", "price": 100, "isVeg": true },
+      { "id": "m11", "name": "Chicken curry rice", "price": 160, "isVeg": false }
+    ]
+  },
+  {
+    "id": "v3",
+    "name": "A2B",
+    "cuisine": "Vegetarian",
+    "phone": "+91 98765 43212",
+    "email": "orders@a2b.com",
+    "address": "789 Adyar, Chennai",
+    "isActive": true,
+    "menuItems": [
+      { "id": "m12", "name": "Mini meals", "price": 120, "isVeg": true },
+      { "id": "m13", "name": "Full meals", "price": 160, "isVeg": true },
+      { "id": "m14", "name": "Pongal", "price": 80, "isVeg": true },
+      { "id": "m15", "name": "Rava dosa", "price": 90, "isVeg": true }
+    ]
+  },
+  {
+    "id": "v4",
+    "name": "KFC",
+    "cuisine": "Fast Food",
+    "phone": "+91 98765 43213",
+    "email": "orders@kfc.com",
+    "address": "101 Phoenix Mall, Chennai",
+    "isActive": true,
+    "menuItems": [
+      { "id": "m16", "name": "Chicken bucket", "price": 450, "isVeg": false },
+      { "id": "m17", "name": "Zinger burger", "price": 180, "isVeg": false },
+      { "id": "m18", "name": "Veg burger", "price": 120, "isVeg": true },
+      { "id": "m19", "name": "Popcorn chicken", "price": 200, "isVeg": false }
+    ]
+  },
+  {
+    "id": "v5",
+    "name": "Dominos",
+    "cuisine": "Pizza",
+    "phone": "+91 98765 43214",
+    "email": "orders@dominos.com",
+    "address": "202 Express Avenue, Chennai",
+    "isActive": true,
+    "menuItems": [
+      { "id": "m20", "name": "Margherita pizza", "price": 250, "isVeg": true },
+      { "id": "m21", "name": "Pepperoni pizza", "price": 350, "isVeg": false },
+      { "id": "m22", "name": "Veggie supreme", "price": 300, "isVeg": true },
+      { "id": "m23", "name": "Chicken dominator", "price": 400, "isVeg": false }
+    ]
+  },
+  {
+    "id": "v6",
+    "name": "Priyam",
+    "cuisine": "North Indian",
+    "phone": "+91 98765 43215",
+    "email": "orders@priyam.com",
+    "address": "303 Velachery, Chennai",
+    "isActive": true,
+    "menuItems": [
+      { "id": "m24", "name": "Paneer tikka", "price": 200, "isVeg": true },
+      { "id": "m25", "name": "Dal makhani", "price": 180, "isVeg": true },
+      { "id": "m26", "name": "Butter naan", "price": 40, "isVeg": true },
+      { "id": "m27", "name": "Tandoori chicken", "price": 280, "isVeg": false }
+    ]
+  },
+  {
+    "id": "v7",
+    "name": "McDonalds",
+    "cuisine": "Fast Food",
+    "phone": "+91 98765 43216",
+    "email": "orders@mcdonalds.com",
+    "address": "404 Forum Mall, Chennai",
+    "isActive": true,
+    "menuItems": [
+      { "id": "m28", "name": "McAloo tikki", "price": 80, "isVeg": true },
+      { "id": "m29", "name": "McSpicy chicken", "price": 180, "isVeg": false },
+      { "id": "m30", "name": "Big Mac", "price": 220, "isVeg": false },
+      { "id": "m31", "name": "McVeggie", "price": 120, "isVeg": true }
+    ]
+  }
+]
