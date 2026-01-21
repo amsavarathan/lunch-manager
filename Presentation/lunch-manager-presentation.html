@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lunch Manager - Product Presentation</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0a0a0a;
+      color: #fff;
+      overflow: hidden;
+    }
+
+    .presentation {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 60px 80px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Slide backgrounds */
+    .slide-1 { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); }
+    .slide-2 { background: linear-gradient(135deg, #2e1a1a 0%, #3e1616 100%); }
+    .slide-3 { background: linear-gradient(135deg, #1a2e1a 0%, #163e16 100%); }
+    .slide-4 { background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 100%); }
+    .slide-5 { background: linear-gradient(135deg, #1a0a2e 0%, #2d1b4e 100%); }
+    .slide-6 { background: linear-gradient(135deg, #0a1a2e 0%, #1b3d4e 100%); }
+    .slide-7 { background: linear-gradient(135deg, #2e1a0a 0%, #4e2d1b 100%); }
+    .slide-8 { background: linear-gradient(135deg, #1a2e2e 0%, #164040 100%); }
+    .slide-9 { background: linear-gradient(135deg, #2e0a1a 0%, #4e1b2d 100%); }
+    .slide-10 { background: linear-gradient(135deg, #1a1a0a 0%, #3e3e16 100%); }
+    .slide-11 { background: linear-gradient(135deg, #f25c54 0%, #e63946 100%); }
+
+    h1 {
+      font-size: 72px;
+      font-weight: 700;
+      margin-bottom: 24px;
+      text-align: center;
+      line-height: 1.1;
+    }
+
+    h2 {
+      font-size: 48px;
+      font-weight: 600;
+      margin-bottom: 40px;
+      text-align: center;
+      color: #f25c54;
+    }
+
+    h3 {
+      font-size: 28px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: #f25c54;
+    }
+
+    p {
+      font-size: 22px;
+      color: rgba(255, 255, 255, 0.8);
+      text-align: center;
+      max-width: 900px;
+      line-height: 1.6;
+    }
+
+    .subtitle {
+      font-size: 28px;
+      color: rgba(255, 255, 255, 0.6);
+      margin-bottom: 60px;
+    }
+
+    .logo {
+      width: 120px;
+      height: 120px;
+      background: linear-gradient(135deg, #f25c54 0%, #e63946 100%);
+      border-radius: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 40px;
+      font-size: 48px;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+      max-width: 1000px;
+    }
+
+    .feature-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 1100px;
+    }
+
+    .feature-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 28px;
+      text-align: left;
+    }
+
+    .feature-card h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .feature-card p {
+      font-size: 16px;
+      text-align: left;
+      line-height: 1.5;
+    }
+
+    .icon {
+      width: 48px;
+      height: 48px;
+      background: rgba(242, 92, 84, 0.2);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      font-size: 22px;
+    }
+
+    .list {
+      text-align: left;
+      max-width: 800px;
+    }
+
+    .list-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+
+    .list-item .bullet {
+      width: 32px;
+      height: 32px;
+      background: #f25c54;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      flex-shrink: 0;
+      font-size: 14px;
+    }
+
+    .list-item .content h4 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .list-item .content p {
+      font-size: 16px;
+      text-align: left;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    /* State machine styles */
+    .state-flow {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 40px;
+    }
+
+    .state-box {
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      padding: 16px 24px;
+      text-align: center;
+      min-width: 140px;
+    }
+
+    .state-box.active-state {
+      border-color: #f25c54;
+      background: rgba(242, 92, 84, 0.15);
+    }
+
+    .state-box .state-name {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .state-box .state-desc {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .state-arrow {
+      font-size: 24px;
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    /* Architecture diagram */
+    .arch-diagram {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      max-width: 1000px;
+      margin-top: 40px;
+    }
+
+    .arch-box {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .arch-box .arch-icon {
+      font-size: 36px;
+      margin-bottom: 12px;
+    }
+
+    .arch-box .arch-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #f25c54;
+      margin-bottom: 8px;
+    }
+
+    .arch-box .arch-desc {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.6);
+      line-height: 1.4;
+    }
+
+    /* Metrics grid */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      max-width: 900px;
+      margin-top: 40px;
+    }
+
+    .metric-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .metric-card .metric-value {
+      font-size: 32px;
+      font-weight: 700;
+      color: #f25c54;
+      margin-bottom: 8px;
+    }
+
+    .metric-card .metric-label {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    /* Demo screen cards */
+    .demo-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      max-width: 1000px;
+    }
+
+    .demo-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 28px;
+      text-align: left;
+    }
+
+    .demo-card .demo-label {
+      display: inline-block;
+      background: #f25c54;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+    }
+
+    .demo-card h3 {
+      font-size: 22px;
+      margin-bottom: 12px;
+      color: #fff;
+    }
+
+    .demo-card ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .demo-card ul li {
+      font-size: 15px;
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 8px;
+      padding-left: 20px;
+      position: relative;
+    }
+
+    .demo-card ul li::before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: #f25c54;
+    }
+
+    .flow-diagram {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .flow-step {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 14px;
+      padding: 20px 28px;
+      text-align: center;
+      min-width: 120px;
+    }
+
+    .flow-step .step-icon {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    .flow-step .step-text {
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .flow-arrow {
+      font-size: 24px;
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    .cta-button {
+      display: inline-block;
+      background: #fff;
+      color: #f25c54;
+      padding: 20px 48px;
+      border-radius: 16px;
+      font-size: 22px;
+      font-weight: 600;
+      text-decoration: none;
+      margin-top: 40px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .cta-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 40px rgba(242, 92, 84, 0.3);
+    }
+
+    .north-star {
+      background: rgba(242, 92, 84, 0.15);
+      border: 2px solid rgba(242, 92, 84, 0.4);
+      border-radius: 16px;
+      padding: 32px 48px;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    .north-star p {
+      font-size: 26px;
+      font-weight: 500;
+      color: #fff;
+    }
+
+    /* Navigation */
+    .nav {
+      position: fixed;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+      z-index: 100;
+    }
+
+    .nav-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .nav-dot.active {
+      background: #f25c54;
+      width: 28px;
+      border-radius: 5px;
+    }
+
+    .nav-arrows {
+      position: fixed;
+      bottom: 40px;
+      right: 40px;
+      display: flex;
+      gap: 12px;
+      z-index: 100;
+    }
+
+    .nav-arrow {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+      font-size: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+
+    .nav-arrow:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .slide-counter {
+      position: fixed;
+      bottom: 44px;
+      left: 40px;
+      font-size: 16px;
+      color: rgba(255, 255, 255, 0.5);
+      z-index: 100;
+    }
+
+    .slide-timer {
+      position: fixed;
+      top: 40px;
+      right: 40px;
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.4);
+      z-index: 100;
+    }
+
+    @media (max-width: 768px) {
+      h1 { font-size: 42px; }
+      h2 { font-size: 32px; }
+      .feature-grid, .demo-grid { grid-template-columns: 1fr; }
+      .arch-diagram { grid-template-columns: repeat(2, 1fr); }
+      .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <div class="presentation">
+    <!-- Slide 1: Title -->
+    <div class="slide slide-1 active" data-slide="1">
+      <div class="logo">🍽️</div>
+      <h1>Lunch Manager</h1>
+      <p class="subtitle">Streamline your office lunch ordering experience</p>
+      <p>A smart solution for managing daily lunch orders, polls, and vendor coordination for modern workplaces.</p>
+    </div>
+
+    <!-- Slide 2: The Problem (60 sec) -->
+    <div class="slide slide-2" data-slide="2">
+      <h2>The Problem</h2>
+      <p style="margin-bottom: 40px;">Daily lunch coordination is an ops workflow problem</p>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="icon">📝</div>
+          <h3>Collecting Preferences</h3>
+          <p>Office managers spend hours collecting lunch preferences via messages, WhatsApp groups, and spreadsheets</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon">😫</div>
+          <h3>Chasing Responses</h3>
+          <p>Constant follow-ups to get everyone to respond before the cutoff time</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon">⚙️</div>
+          <h3>Manual Conversion</h3>
+          <p>Converting individual responses into a vendor-ready order with correct counts</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon">❌</div>
+          <h3>Error-Prone Process</h3>
+          <p>Missing notes, wrong counts, and unclear opt-out status leads to frustrated employees</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 3: North Star + Success Metrics (60 sec) -->
+    <div class="slide slide-3" data-slide="3">
+      <h2>North Star Outcome</h2>
+      <div class="north-star">
+        <p>Admin can go from "poll posted" to "order sent"<br>with confidence in minutes.</p>
+      </div>
+      <p style="margin-bottom: 32px; color: rgba(255,255,255,0.6);">Success Metrics</p>
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-value">&lt;10s</div>
+          <div class="metric-label">Employee response time</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">&lt;2min</div>
+          <div class="metric-label">Admin effort after cutoff</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">↓ 80%</div>
+          <div class="metric-label">Reduced follow-ups</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">100%</div>
+          <div class="metric-label">Response clarity</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 4: System Model / Architecture (90 sec) -->
+    <div class="slide slide-4" data-slide="4">
+      <h2>System Model</h2>
+      <p style="margin-bottom: 20px;">Mental model of the Lunch Manager architecture</p>
+      <div class="arch-diagram">
+        <div class="arch-box">
+          <div class="arch-icon">🏪</div>
+          <div class="arch-title">Vendors</div>
+          <div class="arch-desc">Source of truth for meal options + pricing</div>
+        </div>
+        <div class="arch-box">
+          <div class="arch-icon">📅</div>
+          <div class="arch-title">Plans</div>
+          <div class="arch-desc">Scheduling + restaurant rotation (automation)</div>
+        </div>
+        <div class="arch-box">
+          <div class="arch-icon">📊</div>
+          <div class="arch-title">Today's Order</div>
+          <div class="arch-desc">Daily execution object (state machine)</div>
+        </div>
+        <div class="arch-box">
+          <div class="arch-icon">📤</div>
+          <div class="arch-title">Export</div>
+          <div class="arch-desc">Vendor handoff (WhatsApp / table)</div>
+        </div>
+      </div>
+      <h3 style="margin-top: 48px; margin-bottom: 24px; text-align: center; color: rgba(255,255,255,0.6); font-size: 18px; font-weight: 500;">Lunch management workflow</h3>
+      <div class="flow-diagram">
+        <div class="flow-step">
+          <div class="step-icon">📅</div>
+          <div class="step-text">Create Plan</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <div class="step-icon">📊</div>
+          <div class="step-text">Auto Poll</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <div class="step-icon">🗳️</div>
+          <div class="step-text">Collect Votes</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <div class="step-icon">📤</div>
+          <div class="step-text">Export Order</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <div class="step-icon">🍕</div>
+          <div class="step-text">Lunch!</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 5: State Machine Walkthrough -->
+    <div class="slide slide-5" data-slide="5">
+      <h2>Order Lifecycle</h2>
+      <p style="margin-bottom: 20px;">State machine walkthrough for Today's Order</p>
+      <div class="state-flow">
+        <div class="state-box">
+          <div class="state-name">Not Scheduled</div>
+          <div class="state-desc">Manual quick create</div>
+        </div>
+        <div class="state-arrow">→</div>
+        <div class="state-box">
+          <div class="state-name">Not Started</div>
+          <div class="state-desc">Scheduled preview + post now</div>
+        </div>
+        <div class="state-arrow">→</div>
+        <div class="state-box active-state">
+          <div class="state-name">Live</div>
+          <div class="state-desc">Monitor + nudge + live counts</div>
+        </div>
+        <div class="state-arrow">→</div>
+        <div class="state-box">
+          <div class="state-name">Closed</div>
+          <div class="state-desc">Final counts locked</div>
+        </div>
+        <div class="state-arrow">→</div>
+        <div class="state-box">
+          <div class="state-name">Exported</div>
+          <div class="state-desc">Audit trail</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 6: Demo - Employee Voting (60-90 sec) -->
+    <div class="slide slide-6" data-slide="6">
+      <h2>Demo: Employee Voting</h2>
+      <p style="margin-bottom: 40px;">Fast, simple meal selection for employees</p>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="icon">✅</div>
+          <h3>Single-Select Options</h3>
+          <p>Fast and scalable meal selection - one tap to choose your meal from the menu</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon">📝</div>
+          <h3>Optional Notes</h3>
+          <p>Structured chips + free text for special requests (no onion, extra spicy, etc.)</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon">✏️</div>
+          <h3>Edit Until Cutoff</h3>
+          <p>Employees can change their selection anytime before the poll closes</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon">🚫</div>
+          <h3>Opt-Out Clarity</h3>
+          <p>Clear "Not ordering today" option - no ambiguity about who's in or out</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 7: Demo - Today's Order Dashboard (2 min) -->
+    <div class="slide slide-7" data-slide="7">
+      <h2>Demo: Today's Order Dashboard</h2>
+      <p style="margin-bottom: 40px;">Complete view of live order status at a glance</p>
+      <div class="demo-grid">
+        <div class="demo-card">
+          <div class="demo-label">MONITORING</div>
+          <h3>Response Tracking</h3>
+          <ul>
+            <li>Live response count (49/64 responded)</li>
+            <li>Pending employees list with names</li>
+            <li>One-click "Send reminder" nudge</li>
+            <li>Responded vs Opted-out breakdown</li>
+          </ul>
+        </div>
+        <div class="demo-card">
+          <div class="demo-label">SUMMARY</div>
+          <h3>Order Overview</h3>
+          <ul>
+            <li>Items grouped by veg/non-veg</li>
+            <li>Quantity per item with note indicators</li>
+            <li>Estimated total cost</li>
+            <li>Per-person average</li>
+          </ul>
+        </div>
+        <div class="demo-card">
+          <div class="demo-label">TIMELINE</div>
+          <h3>Progress Stepper</h3>
+          <ul>
+            <li>Visual 6-step order timeline</li>
+            <li>Poll created → Delivered tracking</li>
+            <li>Current step highlighted</li>
+            <li>Guides admin's next action</li>
+          </ul>
+        </div>
+        <div class="demo-card">
+          <div class="demo-label">PREVIEW</div>
+          <h3>Tomorrow's Order</h3>
+          <ul>
+            <li>Next day's plan preview</li>
+            <li>Restaurant + post time shown</li>
+            <li>No surprises for planning</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 8: Demo - Export (1.5 min) -->
+    <div class="slide slide-8" data-slide="8">
+      <h2>Demo: Export Order</h2>
+      <p style="margin-bottom: 40px;">One-click export to vendor with full control</p>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="icon">💬</div>
+          <h3>WhatsApp Message</h3>
+          <p>Pre-formatted message ready to copy-paste to vendor WhatsApp group</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon">📊</div>
+          <h3>Table View</h3>
+          <p>Structured table with item-wise breakdown, quantities, and subtotals</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon">⚙️</div>
+          <h3>Toggle Options</h3>
+          <p>Include/exclude: notes, totals, prices - customize export format</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon">✅</div>
+          <h3>Copy & Mark Ordered</h3>
+          <p>Single action: copy to clipboard + mark order as exported for audit trail</p>
+        </div>
+      </div>
+      <div class="list" style="margin-top: 32px; max-width: 600px;">
+        <div class="list-item">
+          <div class="bullet">🔒</div>
+          <div class="content">
+            <h4>Live Guardrail</h4>
+            <p>"Close & Export" - ensures poll is closed before export is enabled</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 9: Demo - Lunch Plans (1.5 min) -->
+    <div class="slide slide-9" data-slide="9">
+      <h2>Demo: Lunch Plans</h2>
+      <p style="margin-bottom: 40px;">Set it once, run on autopilot</p>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="icon">⏰</div>
+          <h3>Schedule & Cutoff</h3>
+          <p>Set post time (10am) and cutoff (12pm) - polls auto-post and auto-close</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon">🔔</div>
+          <h3>Smart Reminders</h3>
+          <p>Configurable notifications: 10 min before, 1 hour before, or custom</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon">🔄</div>
+          <h3>Restaurant Rotation</h3>
+          <p>One vendor per day - round robin, random, or manual selection modes</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon">👀</div>
+          <h3>Next-Up Preview</h3>
+          <p>See upcoming vendor queue - builds trust and allows planning</p>
+        </div>
+      </div>
+      <div class="list" style="margin-top: 32px; max-width: 600px;">
+        <div class="list-item">
+          <div class="bullet">⚡</div>
+          <div class="content">
+            <h4>Override for "Today Only"</h4>
+            <p>Quick create poll option for one-off orders outside the regular plan</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 10: CTA -->
+    <div class="slide slide-10" data-slide="10">
+      <h1 style="color: #fff;">Ready to simplify<br>office lunch?</h1>
+      <p style="color: rgba(255,255,255,0.9); margin-top: 20px;">Try the interactive prototype and experience the future of lunch management</p>
+      <a href="https://amsavarathan.github.io/lunch-manager/" target="_blank" class="cta-button">
+        View Live Demo →
+      </a>
+    </div>
+
+    <!-- Navigation -->
+    <div class="nav">
+      <div class="nav-dot active" data-goto="1"></div>
+      <div class="nav-dot" data-goto="2"></div>
+      <div class="nav-dot" data-goto="3"></div>
+      <div class="nav-dot" data-goto="4"></div>
+      <div class="nav-dot" data-goto="5"></div>
+      <div class="nav-dot" data-goto="6"></div>
+      <div class="nav-dot" data-goto="7"></div>
+      <div class="nav-dot" data-goto="8"></div>
+      <div class="nav-dot" data-goto="9"></div>
+      <div class="nav-dot" data-goto="10"></div>
+    </div>
+
+    <div class="slide-counter">
+      <span id="current-slide">1</span> / 10
+    </div>
+
+    <div class="slide-timer" id="slide-timer">~60s</div>
+
+    <div class="nav-arrows">
+      <button class="nav-arrow" id="prev-btn">←</button>
+      <button class="nav-arrow" id="next-btn">→</button>
+    </div>
+  </div>
+
+  <script>
+    let currentSlide = 1;
+    const totalSlides = 10;
+
+    // Suggested timing per slide (in seconds)
+    const slideTiming = {
+      1: 30,   // Title
+      2: 60,   // Problem
+      3: 60,   // North Star
+      4: 90,   // System Model
+      5: 90,   // State Machine
+      6: 75,   // Employee Voting
+      7: 120,  // Dashboard
+      8: 90,   // Export
+      9: 90,   // Lunch Plans
+      10: 30   // CTA
+    };
+
+    function updateTimer(slideNum) {
+      const timer = document.getElementById('slide-timer');
+      const seconds = slideTiming[slideNum] || 60;
+      if (seconds >= 60) {
+        const mins = Math.floor(seconds / 60);
+        const secs = seconds % 60;
+        timer.textContent = secs > 0 ? `~${mins}m ${secs}s` : `~${mins}m`;
+      } else {
+        timer.textContent = `~${seconds}s`;
+      }
+    }
+
+    function goToSlide(n) {
+      if (n < 1 || n > totalSlides) return;
+
+      document.querySelectorAll('.slide').forEach(slide => {
+        slide.classList.remove('active');
+      });
+      document.querySelectorAll('.nav-dot').forEach(dot => {
+        dot.classList.remove('active');
+      });
+
+      document.querySelector(`[data-slide="${n}"]`).classList.add('active');
+      document.querySelector(`[data-goto="${n}"]`).classList.add('active');
+      document.getElementById('current-slide').textContent = n;
+      updateTimer(n);
+
+      currentSlide = n;
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides) {
+        goToSlide(currentSlide + 1);
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 1) {
+        goToSlide(currentSlide - 1);
+      }
+    }
+
+    // Initialize timer
+    updateTimer(1);
+
+    // Navigation dots
+    document.querySelectorAll('.nav-dot').forEach(dot => {
+      dot.addEventListener('click', () => {
+        goToSlide(parseInt(dot.dataset.goto));
+      });
+    });
+
+    // Arrow buttons
+    document.getElementById('next-btn').addEventListener('click', nextSlide);
+    document.getElementById('prev-btn').addEventListener('click', prevSlide);
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        e.preventDefault();
+        nextSlide();
+      } else if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        prevSlide();
+      }
+    });
+
+    // Touch/swipe support
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    document.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    });
+
+    document.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      if (touchStartX - touchEndX > 50) {
+        nextSlide();
+      } else if (touchEndX - touchStartX > 50) {
+        prevSlide();
+      }
+    });
+  </script>
+</body>
+</html>

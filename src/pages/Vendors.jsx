@@ -8,7 +8,8 @@ import {
   Trash2,
   ChevronDown,
   ChevronUp,
-  Search
+  Search,
+  Star
 } from 'lucide-react'
 import initialVendors from '../data/vendors.json'
 
@@ -47,6 +48,11 @@ function VendorCard({ vendor, isExpanded, onToggle, onEdit, onDelete }) {
               <h3 className="font-semibold text-gray-900">{vendor.name}</h3>
               <span className="px-2 py-0.5 bg-gray-100 rounded text-xs font-medium text-gray-600">
                 {vendor.cuisine}
+              </span>
+              <span className="flex items-center gap-1 px-2 py-0.5 bg-amber-50 rounded text-xs font-medium text-amber-700">
+                <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
+                {vendor.rating}
+                <span className="text-amber-600/70">({vendor.totalReviews})</span>
               </span>
               {!vendor.isActive && (
                 <span className="px-2 py-0.5 bg-red-50 rounded text-xs font-medium text-red-600">
@@ -132,7 +138,14 @@ function VendorCard({ vendor, isExpanded, onToggle, onEdit, onDelete }) {
                 <div className="space-y-2">
                   {vegItems.map(item => (
                     <div key={item.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                      <span className="text-sm text-gray-700">{item.name}</span>
+                      <div className="flex-1">
+                        <span className="text-sm text-gray-700">{item.name}</span>
+                        <div className="flex items-center gap-1 mt-0.5">
+                          <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
+                          <span className="text-xs text-gray-500">{item.rating}</span>
+                          <span className="text-xs text-gray-400">({item.reviews})</span>
+                        </div>
+                      </div>
                       <span className="text-sm font-medium text-gray-900">₹{item.price}</span>
                     </div>
                   ))}
@@ -150,7 +163,14 @@ function VendorCard({ vendor, isExpanded, onToggle, onEdit, onDelete }) {
                 <div className="space-y-2">
                   {nonVegItems.map(item => (
                     <div key={item.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                      <span className="text-sm text-gray-700">{item.name}</span>
+                      <div className="flex-1">
+                        <span className="text-sm text-gray-700">{item.name}</span>
+                        <div className="flex items-center gap-1 mt-0.5">
+                          <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
+                          <span className="text-xs text-gray-500">{item.rating}</span>
+                          <span className="text-xs text-gray-400">({item.reviews})</span>
+                        </div>
+                      </div>
                       <span className="text-sm font-medium text-gray-900">₹{item.price}</span>
                     </div>
                   ))}
